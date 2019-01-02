@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1ED59DE5-4D88-3502-8FB0-9F059411CF7F}</ProjectGuid>
+    <RootNamespace>cgFaceRecognition</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="Configuration">
+    <PlatformToolset>v140</PlatformToolset>
+    <OutputDirectory>release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>cgFaceRecognition0</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="Configuration">
+    <PlatformToolset>v140</PlatformToolset>
+    <OutputDirectory>debug\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>cgFaceRecognition0</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">cgFaceRecognition0</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">false</LinkIncremental>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">cgFaceRecognition0</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\src;.;..\..\..\..\cgFaceRecognition;..\..\..\dlib\external\libpng;..\..\..\dlib\external\libjpeg;..\..\..\dlib\external\zlib;D:\Qt\5.9.7\msvc2015_64\include;D:\Qt\5.9.7\msvc2015_64\include\QtGui;D:\Qt\5.9.7\msvc2015_64\include\QtANGLE;D:\Qt\5.9.7\msvc2015_64\include\QtCore;release;D:\Qt\5.9.7\msvc2015_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;WIN64;CGFACERECOGNITION_EXPORTS;DLIB_NO_GUI_SUPPORT;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName></ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>D:\Qt\5.9.7\msvc2015_64\lib\Qt5Gui.lib;D:\Qt\5.9.7\msvc2015_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Qt\5.9.7\msvc2015_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\cgFaceRecognition0.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <Version>0.1</Version>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;WIN64;CGFACERECOGNITION_EXPORTS;DLIB_NO_GUI_SUPPORT;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\src;.;..\..\..\..\cgFaceRecognition;..\..\..\dlib\external\libpng;..\..\..\dlib\external\libjpeg;..\..\..\dlib\external\zlib;D:\Qt\5.9.7\msvc2015_64\include;D:\Qt\5.9.7\msvc2015_64\include\QtGui;D:\Qt\5.9.7\msvc2015_64\include\QtANGLE;D:\Qt\5.9.7\msvc2015_64\include\QtCore;debug;D:\Qt\5.9.7\msvc2015_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;WIN64;CGFACERECOGNITION_EXPORTS;DLIB_NO_GUI_SUPPORT;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>D:\Qt\5.9.7\msvc2015_64\lib\Qt5Guid.lib;D:\Qt\5.9.7\msvc2015_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Qt\5.9.7\msvc2015_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <OutputFile>$(OutDir)\cgFaceRecognition0.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <Version>0.1</Version>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;WIN64;CGFACERECOGNITION_EXPORTS;DLIB_NO_GUI_SUPPORT;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;QT_GUI_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\dlib\external\zlib\adler32.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\compress.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\crc32.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\deflate.c" />
+    <ClCompile Include="..\..\..\src\facedetection.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\gzclose.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\gzlib.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\gzread.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\gzwrite.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\infback.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\inffast.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\inflate.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\inftrees.c" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcapimin.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcapistd.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jccoefct.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jccolor.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcdctmgr.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jchuff.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcinit.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcmainct.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcmarker.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcmaster.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcomapi.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcparam.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcphuff.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcprepct.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jcsample.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdapimin.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdapistd.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdatadst.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdatasrc.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdcoefct.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdcolor.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jddctmgr.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdhuff.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdinput.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdmainct.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdmarker.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdmaster.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdmerge.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdphuff.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdpostct.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jdsample.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jerror.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jfdctflt.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jfdctfst.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jfdctint.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jidctflt.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jidctfst.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jidctint.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jidctred.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jmemmgr.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jmemnobs.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jquant1.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jquant2.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libjpeg\jutils.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\png.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngerror.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngget.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngmem.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngpread.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngread.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngrio.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngrtran.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngrutil.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngset.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngtrans.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngwio.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngwrite.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngwtran.c" />
+    <ClCompile Include="..\..\..\dlib\external\libpng\pngwutil.c" />
+    <ClCompile Include="..\..\..\dlib\all\source.cpp" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\trees.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\uncompr.c" />
+    <ClCompile Include="..\..\..\dlib\external\zlib\zutil.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\cgfacerecognition.h" />
+    <ClInclude Include="..\..\..\src\facedetection.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">D:\Qt\5.9.7\msvc2015_64\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">cl -BxD:\Qt\5.9.7\msvc2015_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E D:\Qt\5.9.7\msvc2015_64\mkspecs\features\data\dummy.cpp 2>NUL >debug\moc_predefs.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">Generate moc_predefs.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">D:\Qt\5.9.7\msvc2015_64\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">cl -BxD:\Qt\5.9.7\msvc2015_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -O2 -MD -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E D:\Qt\5.9.7\msvc2015_64\mkspecs\features\data\dummy.cpp 2>NUL >release\moc_predefs.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">Generate moc_predefs.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_predefs.h;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C:\Users\cglancy\Documents\GitHub\cgFaceRecognition\build\windows\src\cgFaceRecognition_resource.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
