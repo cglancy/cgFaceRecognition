@@ -11,9 +11,11 @@ INCLUDEPATH += ../dlib \
 	../dlib/dlib/external/zlib
 
 HEADERS += cgfacerecognition.h \
-	facedetection.h
+	facedetection.h \
+	facerecognition.h
 
 SOURCES += facedetection.cpp \
+	facerecognition.cpp \
 	../dlib/dlib/all/source.cpp \
 	../dlib/dlib/external/libjpeg/jcapimin.cpp \
 	../dlib/dlib/external/libjpeg/jcapistd.cpp \

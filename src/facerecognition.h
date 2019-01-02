@@ -13,29 +13,40 @@
 * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef CG_FACERECOGNITIONTEST_H
-#define CG_FACERECOGNITIONTEST_H
+#ifndef CG_FACERECOGNITION_H
+#define CG_FACERECOGNITION_H
 #pragma once
 
-#include "facedetection.h"
-#include <QDir>
+#include "cgfacerecognition.h"
 
-class FaceRecognitionTest : public QObject
+#include <QString>
+#include <QList>
+#include <QRect>
+
+namespace cg
 {
-    Q_OBJECT
-public:
-    FaceRecognitionTest();
-    ~FaceRecognitionTest();
+    class FaceRecognitionPrivate;
 
-private slots:
-    void init();
-    void cleanup();
-    void testFaceDetection();
-    void testFaceRecognition();
+    class CGFACERECOGNITION_API FaceRecognitionRect
+    {
+    public:
+        QString key;
+        QRect rect;
+        float distance;
+    };
 
-private:
-    QDir m_imagesDir;
-    QDir m_modelsDir;
-};
+    class CGFACERECOGNITION_API FaceRecognition
+    {
+    public:
+        FaceRecognition(const QString &modelDirPath);
+        ~FaceRecognition();
 
-#endif // CG_FACERECOGNITIONTEST_H
+        void addFace(const QString &key, const QString &imagePath);
+        QList<FaceRecognitionRect> recognizeFaces(const QString &imagePath, float tolerance = 0.6);
+
+    private:
+        FaceRecognitionPrivate *const d_ptr;
+    };
+}
+
+#endif // CG_FACERECOGNITION_H

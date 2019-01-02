@@ -20,11 +20,11 @@
 
 namespace cg
 {
-    QList<QRect> FaceDetection::detectFaces(const QString &filePath)
+    QList<QRect> FaceDetection::faceLocations(const QString &imagePath)
     {
         dlib::frontal_face_detector detector = dlib::get_frontal_face_detector();
         dlib::array2d<unsigned char> img;
-        dlib::load_image(img, filePath.toStdString());
+        dlib::load_image(img, imagePath.toStdString());
         dlib::pyramid_up(img);
         std::vector<dlib::rectangle> rects = detector(img);
 

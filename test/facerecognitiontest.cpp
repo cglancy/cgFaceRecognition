@@ -15,6 +15,7 @@
 */
 #include "facerecognitiontest.h"
 #include "facedetection.h"
+#include "facerecognition.h"
 
 #include <QTest>
 
@@ -30,6 +31,13 @@ FaceRecognitionTest::~FaceRecognitionTest()
 
 void FaceRecognitionTest::init()
 {
+    QString appDirPath = QCoreApplication::applicationDirPath();
+
+    m_imagesDir.setPath(appDirPath + "/../../../../test/images");
+    QVERIFY(m_imagesDir.exists());
+
+    m_modelsDir.setPath(appDirPath + "/../../../../models");
+    QVERIFY(m_modelsDir.exists());
 }
 
 void FaceRecognitionTest::cleanup()
@@ -38,13 +46,33 @@ void FaceRecognitionTest::cleanup()
 
 void FaceRecognitionTest::testFaceDetection()
 {
-    QString appDirPath = QCoreApplication::applicationDirPath();
-    QString testFilePath = appDirPath + "/../../../../test/2008_004176.jpg";
-    QFileInfo fileInfo(testFilePath);
+    QString testImagePath = m_imagesDir.absolutePath() + "/2008_004176.jpg";
+    QFileInfo fileInfo(testImagePath);
     QVERIFY(fileInfo.exists());
     if (fileInfo.exists())
     {
-        QList<QRect> rectList = FaceDetection::detectFaces(testFilePath);
+        QList<QRect> rectList = FaceDetection::faceLocations(testImagePath);
         QCOMPARE(rectList.size(), 7);
+    }
+}
+
+void FaceRecognitionTest::testFaceRecognition()
+{
+    QString willFerrellImagePath = m_imagesDir.absolutePath() + "/Will_Ferrell.jpg";
+    QString chadSmithImagePath = m_imagesDir.absolutePath() + "/Chad_Smith.jpg";
+    QString bothImagePath = m_imagesDir.absolutePath() + "/Ferrell_Smith.jpg";
+
+    FaceRecognition faceRecognition(m_modelsDir.absolutePath());
+    faceRecognition.addFace("ferrell", willFerrellImagePath);
+    faceRecognition.addFace("smith", chadSmithImagePath);
+    QList<FaceRecognitionRect> rects = faceRecognition.recognizeFaces(bothImagePath);
+    QCOMPARE(rects.size(), 2);
+
+    for (auto & rect : rects)
+    {
+        if (rect.key == "smith")
+            QVERIFY(rect.rect.contains(640, 140));
+        else if (rect.key == "ferrell")
+            QVERIFY(rect.rect.contains(300, 115));
     }
 }

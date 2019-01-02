@@ -13,8 +13,8 @@
 * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef CGFACEDETECTION_H
-#define CGFACEDETECTION_H
+#ifndef CG_FACEDETECTION_H
+#define CG_FACEDETECTION_H
 #pragma once
 
 #include "cgfacerecognition.h"
@@ -28,9 +28,9 @@ namespace cg
     class CGFACERECOGNITION_API FaceDetection
     {
     public:
-        static QList<QRect> detectFaces(const QString &filePath);
+        static QList<QRect> faceLocations(const QString &imagePath);
     };
 
 }
 
-#endif // CGFACEDETECTION_H
+#endif // CG_FACEDETECTION_H
