@@ -1,5 +1,5 @@
 # cgFaceRecognition #
 
 * Face recognition library
-* Based on dlib-19.16
+* Based on https://github.com/ageitgey/face_recognition
 
