@@ -14,7 +14,7 @@
 * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "facerecognition.h"
-#include "faceencoding_p.h"
+#include "face_p.h"
 
 #include <map>
 #include <algorithm>
@@ -71,22 +71,26 @@ using anet_type = loss_metric<fc_no_bias<128, avg_pool_everything<
 
 namespace cg
 {
-    QRect toQRect(rectangle r)
-    {
-        return QRect(r.left(), r.top(), r.width(), r.height());
-    }
-
-    FaceRecognitionRect::FaceRecognitionRect()
-        : distance(0.)
-    {
-    }
-
     class FaceRecognitionPrivate
     {
     public:
         frontal_face_detector detector;
         shape_predictor pose_predictor;
         anet_type face_recognition_net;
+
+        std::vector<matrix<rgb_pixel>> jitter_image(const matrix<rgb_pixel>& img)
+        {
+            // All this function does is make 100 copies of img, all slightly jittered by being
+            // zoomed, rotated, and translated a little bit differently. They are also randomly
+            // mirrored left to right.
+            thread_local dlib::rand rnd;
+
+            std::vector<matrix<rgb_pixel>> crops;
+            for (int i = 0; i < 100; ++i)
+                crops.push_back(dlib::jitter_image(img, rnd));
+
+            return crops;
+        }
     };
 
     FaceRecognition::FaceRecognition(const QString & modelDirPath)
@@ -108,11 +112,11 @@ namespace cg
         delete d_ptr;
     }
 
-    FaceEncodings FaceRecognition::faceEncodings(const QString &imagePath)
+    Faces FaceRecognition::faces(const QString &imagePath, const QString &id, bool jitter)
     {
-        FaceEncodings encodings;
+        Faces faces;
 
-        array2d<rgb_pixel> img;
+        matrix<rgb_pixel> img;
         load_image(img, imagePath.toStdString());
 
         std::vector<rectangle> rectangles = d_ptr->detector(img);
@@ -123,62 +127,58 @@ namespace cg
             matrix<rgb_pixel> face_chip;
             extract_image_chip(img, get_face_chip_details(shape, 150, 0.25), face_chip);
 
-            FaceEncoding encoding;
-            encoding.d_ptr->rectangle = rect;
-            encoding.d_ptr->matrix = d_ptr->face_recognition_net(std::move(face_chip));
-            encodings.append(encoding);
+            Face face(id, QByteArray());
+            face.d_ptr->rectangle = rect;
+
+            if (jitter)
+                face.d_ptr->matrix = mean(mat(d_ptr->face_recognition_net(d_ptr->jitter_image(std::move(face_chip)))));
+            else
+                face.d_ptr->matrix = d_ptr->face_recognition_net(std::move(face_chip));
+
+            faces.append(face);
         }
 
-        return encodings;
+        return faces;
     }
 
-    QList<FaceRecognitionRect> FaceRecognition::recognizeFaces(const QMap<QString, FaceEncoding> &knownFaces, const QString &imagePath, float tolerance)
+    Faces FaceRecognition::recognizeFaces(const Faces &knownFaces, const QString &imagePath, float tolerance)
     {
-        QList<FaceRecognitionRect> rects;
+        Faces recognizedFaces;
 
-        FaceEncodings encodings = faceEncodings(imagePath);
+        Faces imageFaces = faces(imagePath);
 
-        for (auto & encoding : encodings)
+        for (auto & imageFace : imageFaces)
         {
-            std::vector<FaceRecognitionRect> candidateRects;
+            std::vector<Face> candidateFaces;
 
-            for (auto & key : knownFaces.uniqueKeys())
+            for (auto & knownFace : knownFaces)
             {
-                FaceEncodings knownFaceEncodings = knownFaces.values(key);
-
-                for (auto & knownFaceEncoding : knownFaceEncodings)
+                float distance = length(knownFace.d_ptr->matrix - imageFace.d_ptr->matrix);
+                if (distance < tolerance)
                 {
-                    float distance = length(knownFaceEncoding.d_ptr->matrix - encoding.d_ptr->matrix);
-                    if (distance < tolerance)
-                    {
-                        FaceRecognitionRect rect;
-                        rect.distance = distance;
-                        rect.rect = toQRect(encoding.d_ptr->rectangle);
-                        rect.key = key;
-                        candidateRects.push_back(rect);
-                    }
+                    Face face = imageFace;
+                    face.d_ptr->distance = distance;
+                    face.d_ptr->id = knownFace.d_ptr->id;
+                    candidateFaces.push_back(face);
                 }
             }
 
-            if (candidateRects.size() > 0)
+            if (candidateFaces.size() > 0)
             {
-                std::sort(candidateRects.begin(), candidateRects.end(),
-                    [](const FaceRecognitionRect &a, const FaceRecognitionRect &b) -> bool
+                std::sort(candidateFaces.begin(), candidateFaces.end(),
+                    [](const Face &a, const Face &b) -> bool
                 {
-                    return a.distance < b.distance;
+                    return a.d_ptr->distance < b.d_ptr->distance;
                 });
 
-                rects.append(candidateRects.at(0));
+                recognizedFaces.append(candidateFaces.at(0));
             }
             else
             {
-                FaceRecognitionRect unknownRect;
-                unknownRect.rect = toQRect(encoding.d_ptr->rectangle);
-                rects.append(unknownRect);
+                recognizedFaces.append(imageFace);
             }
         }
 
-        return rects;
+        return recognizedFaces;
     }
-
 }

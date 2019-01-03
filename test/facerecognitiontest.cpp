@@ -65,24 +65,21 @@ void FaceRecognitionTest::testFaceRecognition()
 
     FaceRecognition faceRecognition(m_modelsDir.absolutePath());
 
-    QMap<QString, FaceEncoding> knownFacesMap;
+    QString willFerrellId("Will Ferrell");
+    QString chadSmithId("Chad Smith");
 
-    FaceEncodings ferrellEncodings = faceRecognition.faceEncodings(willFerrellImagePath);
-    for (auto & encoding : ferrellEncodings)
-        knownFacesMap.insertMulti("ferrell", encoding);
+    Faces knownFaces;
+    knownFaces.append(faceRecognition.faces(willFerrellImagePath, willFerrellId, false));
+    knownFaces.append(faceRecognition.faces(chadSmithImagePath, chadSmithId, false));
 
-    FaceEncodings smithEncodings = faceRecognition.faceEncodings(chadSmithImagePath);
-    for (auto & encoding : smithEncodings)
-        knownFacesMap.insertMulti("smith", encoding);
+    Faces faces = faceRecognition.recognizeFaces(knownFaces, bothImagePath);
+    QCOMPARE(faces.size(), 2);
 
-    QList<FaceRecognitionRect> rects = faceRecognition.recognizeFaces(knownFacesMap, bothImagePath);
-    QCOMPARE(rects.size(), 2);
-
-    for (auto & rect : rects)
+    for (auto & face : faces)
     {
-        if (rect.key == "smith")
-            QVERIFY(rect.rect.contains(640, 140));
-        else if (rect.key == "ferrell")
-            QVERIFY(rect.rect.contains(300, 115));
+        if (face.id() == chadSmithId)
+            QVERIFY(face.rect().contains(640, 140));
+        else if (face.id() == willFerrellId)
+            QVERIFY(face.rect().contains(300, 115));
     }
 }

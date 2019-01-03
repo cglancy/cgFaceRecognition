@@ -13,32 +13,62 @@
 * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include "faceencoding.h"
-#include "faceencoding_p.h"
+#include "face.h"
+#include "face_p.h"
 
 namespace cg
 {
-    FaceEncoding::FaceEncoding()
-        : d_ptr(new FaceEncodingPrivate())
+    Face::Face()
+        : d_ptr(new FacePrivate())
     {
     }
 
-    FaceEncoding::FaceEncoding(const FaceEncoding &encoding)
-        : d_ptr(new FaceEncodingPrivate())
+    Face::Face(const QString &id, const QByteArray &encoding)
+        : d_ptr(new FacePrivate())
     {
-        d_ptr->matrix = encoding.d_ptr->matrix;
-        d_ptr->rectangle = encoding.d_ptr->rectangle;
+        d_ptr->id = id;
     }
 
-    FaceEncoding::~FaceEncoding()
+    Face::Face(const Face &fr)
+        : d_ptr(new FacePrivate())
+    {
+        d_ptr->matrix = fr.d_ptr->matrix;
+        d_ptr->rectangle = fr.d_ptr->rectangle;
+        d_ptr->id = fr.d_ptr->id;
+        d_ptr->distance = fr.d_ptr->distance;
+    }
+
+    Face::~Face()
     {
         delete d_ptr;
     }
 
-    FaceEncoding & FaceEncoding::operator=(const FaceEncoding &encoding)
+    Face & Face::operator=(const Face &fr)
     {
-        d_ptr->matrix = encoding.d_ptr->matrix;
-        d_ptr->rectangle = encoding.d_ptr->rectangle;
+        d_ptr->matrix = fr.d_ptr->matrix;
+        d_ptr->rectangle = fr.d_ptr->rectangle;
+        d_ptr->id = fr.d_ptr->id;
+        d_ptr->distance = fr.d_ptr->distance;
         return *this;
+    }
+
+    QString Face::id() const
+    {
+        return d_ptr->id;
+    }
+
+    QByteArray Face::encoding() const
+    {
+        return QByteArray();
+    }
+
+    QRect Face::rect() const
+    {
+        return QRect(d_ptr->rectangle.left(), d_ptr->rectangle.top(), d_ptr->rectangle.width(), d_ptr->rectangle.height());
+    }
+
+    float Face::distance() const
+    {
+        return d_ptr->distance;
     }
 }

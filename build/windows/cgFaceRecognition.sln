@@ -2,11 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cgFaceRecognition", "src\cgFaceRecognition.vcxproj", "{1ED59DE5-4D88-3502-8FB0-9F059411CF7F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cgFaceRecognition", "src\cgFaceRecognition.vcxproj", "{90473E6B-5ED8-34E1-B568-51E209573D2D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cgFaceRecognitionTest", "test\cgFaceRecognitionTest.vcxproj", "{812AC56C-122C-38B3-BD9C-9FBDD35C27B0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cgFaceRecognitionTest", "test\cgFaceRecognitionTest.vcxproj", "{FA78C43A-5101-3956-8688-3DAA7AF24871}"
 	ProjectSection(ProjectDependencies) = postProject
-		{1ED59DE5-4D88-3502-8FB0-9F059411CF7F} = {1ED59DE5-4D88-3502-8FB0-9F059411CF7F}
+		{90473E6B-5ED8-34E1-B568-51E209573D2D} = {90473E6B-5ED8-34E1-B568-51E209573D2D}
 	EndProjectSection
 EndProject
 Global
@@ -15,14 +15,14 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1ED59DE5-4D88-3502-8FB0-9F059411CF7F}.Debug|x64.ActiveCfg = Debug|x64
-		{1ED59DE5-4D88-3502-8FB0-9F059411CF7F}.Debug|x64.Build.0 = Debug|x64
-		{1ED59DE5-4D88-3502-8FB0-9F059411CF7F}.Release|x64.ActiveCfg = Release|x64
-		{1ED59DE5-4D88-3502-8FB0-9F059411CF7F}.Release|x64.Build.0 = Release|x64
-		{812AC56C-122C-38B3-BD9C-9FBDD35C27B0}.Debug|x64.ActiveCfg = Debug|x64
-		{812AC56C-122C-38B3-BD9C-9FBDD35C27B0}.Debug|x64.Build.0 = Debug|x64
-		{812AC56C-122C-38B3-BD9C-9FBDD35C27B0}.Release|x64.ActiveCfg = Release|x64
-		{812AC56C-122C-38B3-BD9C-9FBDD35C27B0}.Release|x64.Build.0 = Release|x64
+		{90473E6B-5ED8-34E1-B568-51E209573D2D}.Debug|x64.ActiveCfg = Debug|x64
+		{90473E6B-5ED8-34E1-B568-51E209573D2D}.Debug|x64.Build.0 = Debug|x64
+		{90473E6B-5ED8-34E1-B568-51E209573D2D}.Release|x64.ActiveCfg = Release|x64
+		{90473E6B-5ED8-34E1-B568-51E209573D2D}.Release|x64.Build.0 = Release|x64
+		{FA78C43A-5101-3956-8688-3DAA7AF24871}.Debug|x64.ActiveCfg = Debug|x64
+		{FA78C43A-5101-3956-8688-3DAA7AF24871}.Debug|x64.Build.0 = Debug|x64
+		{FA78C43A-5101-3956-8688-3DAA7AF24871}.Release|x64.ActiveCfg = Release|x64
+		{FA78C43A-5101-3956-8688-3DAA7AF24871}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,32 +13,25 @@
 * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef CG_FACEENCODING_H
-#define CG_FACEENCODING_H
+#ifndef CG_FACE_P_H
+#define CG_FACE_P_H
 #pragma once
 
-#include "cgfacerecognition.h"
-#include <QList>
+#include <dlib/matrix.h>
+#include <QString>
 
 namespace cg
 {
-    class FaceEncodingPrivate;
-
-    class CGFACERECOGNITION_API FaceEncoding
+    class FacePrivate
     {
     public:
-        FaceEncoding();
-        FaceEncoding(const FaceEncoding &encoding);
-        ~FaceEncoding();
+        FacePrivate() : distance(0.) {}
 
-        FaceEncoding & operator=(const FaceEncoding &encoding);
-
-    private:
-        friend class FaceRecognition;
-        FaceEncodingPrivate *const d_ptr;
+        QString id;
+        dlib::matrix<float, 0, 1> matrix;
+        dlib::rectangle rectangle;
+        float distance;
     };
-
-    typedef QList<FaceEncoding> FaceEncodings;
 }
 
-#endif // CG_FACEENCODING_H
+#endif // CG_FACE_P_H

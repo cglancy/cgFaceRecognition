@@ -15,12 +15,12 @@ INCLUDEPATH += ../dlib \
 
 HEADERS += cgfacerecognition.h \
 	facedetection.h \
-	faceencoding.h \
-	faceencoding_p.h \
+	face.h \
+	face_p.h \
 	facerecognition.h
 
 SOURCES += facedetection.cpp \
-	faceencoding.cpp \
+	face.cpp \
 	facerecognition.cpp \
 	../dlib/dlib/all/source.cpp \
 	../dlib/dlib/external/libjpeg/jcapimin.cpp \
@@ -98,4 +98,4 @@ SOURCES += facedetection.cpp \
 	../dlib/dlib/external/zlib/uncompr.c \
 	../dlib/dlib/external/zlib/zutil.c
 
-DEFINES += CGFACERECOGNITION_EXPORTS DLIB_NO_GUI_SUPPORT DLIB_JPEG_SUPPORT DLIB_PNG_SUPPORT USE_SSE4_INSTRUCTIONS=ON
+DEFINES += CGFACERECOGNITION_EXPORTS DLIB_NO_GUI_SUPPORT DLIB_JPEG_SUPPORT DLIB_PNG_SUPPORT USE_AVX_INSTRUCTIONS=ON
