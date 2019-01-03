@@ -18,9 +18,11 @@
 #pragma once
 
 #include "cgfacerecognition.h"
+#include "faceencoding.h"
 
 #include <QString>
 #include <QList>
+#include <QMap>
 #include <QRect>
 
 namespace cg
@@ -30,6 +32,8 @@ namespace cg
     class CGFACERECOGNITION_API FaceRecognitionRect
     {
     public:
+        FaceRecognitionRect();
+
         QString key;
         QRect rect;
         float distance;
@@ -41,8 +45,8 @@ namespace cg
         FaceRecognition(const QString &modelDirPath);
         ~FaceRecognition();
 
-        void addFace(const QString &key, const QString &imagePath);
-        QList<FaceRecognitionRect> recognizeFaces(const QString &imagePath, float tolerance = 0.6);
+        FaceEncodings faceEncodings(const QString &imagePath);
+        QList<FaceRecognitionRect> recognizeFaces(const QMap<QString, FaceEncoding> &knownFaces, const QString &imagePath, float tolerance = 0.6);
 
     private:
         FaceRecognitionPrivate *const d_ptr;

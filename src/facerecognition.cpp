@@ -14,6 +14,7 @@
 * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "facerecognition.h"
+#include "faceencoding_p.h"
 
 #include <map>
 #include <algorithm>
@@ -70,51 +71,22 @@ using anet_type = loss_metric<fc_no_bias<128, avg_pool_everything<
 
 namespace cg
 {
-    typedef matrix<float, 0, 1> face_encoding_t;
+    QRect toQRect(rectangle r)
+    {
+        return QRect(r.left(), r.top(), r.width(), r.height());
+    }
+
+    FaceRecognitionRect::FaceRecognitionRect()
+        : distance(0.)
+    {
+    }
 
     class FaceRecognitionPrivate
     {
     public:
-        std::multimap<QString, face_encoding_t> face_encoding_map;
         frontal_face_detector detector;
         shape_predictor pose_predictor;
         anet_type face_recognition_net;
-
-        class EncodingPair
-        {
-        public:
-            EncodingPair(const rectangle &r, const face_encoding_t &e)
-                : face_rectangle(r), face_encoding(e) {}
-
-            rectangle face_rectangle;
-            face_encoding_t face_encoding;
-        };
-
-        std::vector<EncodingPair> faceEncodings(const QString & imagePath)
-        {
-            std::vector<EncodingPair> pairs;
-
-            array2d<rgb_pixel> img;
-            load_image(img, imagePath.toStdString());
-
-            std::vector<matrix<rgb_pixel>> faces;
-            std::vector<rectangle> rectangles = detector(img);
-
-            for (auto rect : rectangles)
-            {
-                auto shape = pose_predictor(img, rect);
-                matrix<rgb_pixel> face_chip;
-                extract_image_chip(img, get_face_chip_details(shape, 150, 0.25), face_chip);
-                faces.push_back(std::move(face_chip));
-            }
-
-            std::vector<face_encoding_t> encodings = face_recognition_net(faces);
-
-            for (int i = 0; i < encodings.size(); i++)
-                pairs.push_back(EncodingPair(rectangles[i], encodings[i]));
-
-            return pairs;
-        }
     };
 
     FaceRecognition::FaceRecognition(const QString & modelDirPath)
@@ -133,36 +105,58 @@ namespace cg
 
     FaceRecognition::~FaceRecognition()
     {
+        delete d_ptr;
     }
 
-    void FaceRecognition::addFace(const QString &key, const QString &imagePath)
+    FaceEncodings FaceRecognition::faceEncodings(const QString &imagePath)
     {
-        std::vector<FaceRecognitionPrivate::EncodingPair> pairs = d_ptr->faceEncodings(imagePath);
-        for (auto & pair : pairs)
-            d_ptr->face_encoding_map.emplace(key, pair.face_encoding);
+        FaceEncodings encodings;
+
+        array2d<rgb_pixel> img;
+        load_image(img, imagePath.toStdString());
+
+        std::vector<rectangle> rectangles = d_ptr->detector(img);
+
+        for (auto rect : rectangles)
+        {
+            auto shape = d_ptr->pose_predictor(img, rect);
+            matrix<rgb_pixel> face_chip;
+            extract_image_chip(img, get_face_chip_details(shape, 150, 0.25), face_chip);
+
+            FaceEncoding encoding;
+            encoding.d_ptr->rectangle = rect;
+            encoding.d_ptr->matrix = d_ptr->face_recognition_net(std::move(face_chip));
+            encodings.append(encoding);
+        }
+
+        return encodings;
     }
 
-    QList<FaceRecognitionRect> FaceRecognition::recognizeFaces(const QString &imagePath, float tolerance)
+    QList<FaceRecognitionRect> FaceRecognition::recognizeFaces(const QMap<QString, FaceEncoding> &knownFaces, const QString &imagePath, float tolerance)
     {
         QList<FaceRecognitionRect> rects;
 
-        std::vector<FaceRecognitionPrivate::EncodingPair> pairs = d_ptr->faceEncodings(imagePath);
+        FaceEncodings encodings = faceEncodings(imagePath);
 
-        for (auto & pair : pairs)
+        for (auto & encoding : encodings)
         {
             std::vector<FaceRecognitionRect> candidateRects;
 
-            for (auto & kv : d_ptr->face_encoding_map)
+            for (auto & key : knownFaces.uniqueKeys())
             {
-                float distance = length(pair.face_encoding - kv.second);
-                if (distance < tolerance)
+                FaceEncodings knownFaceEncodings = knownFaces.values(key);
+
+                for (auto & knownFaceEncoding : knownFaceEncodings)
                 {
-                    FaceRecognitionRect rect;
-                    rect.distance = distance;
-                    rect.rect = QRect(pair.face_rectangle.left(), pair.face_rectangle.top(), 
-                        pair.face_rectangle.width(), pair.face_rectangle.height());
-                    rect.key = kv.first;
-                    candidateRects.push_back(rect);
+                    float distance = length(knownFaceEncoding.d_ptr->matrix - encoding.d_ptr->matrix);
+                    if (distance < tolerance)
+                    {
+                        FaceRecognitionRect rect;
+                        rect.distance = distance;
+                        rect.rect = toQRect(encoding.d_ptr->rectangle);
+                        rect.key = key;
+                        candidateRects.push_back(rect);
+                    }
                 }
             }
 
@@ -175,6 +169,12 @@ namespace cg
                 });
 
                 rects.append(candidateRects.at(0));
+            }
+            else
+            {
+                FaceRecognitionRect unknownRect;
+                unknownRect.rect = toQRect(encoding.d_ptr->rectangle);
+                rects.append(unknownRect);
             }
         }
 

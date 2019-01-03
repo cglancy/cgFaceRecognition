@@ -1,7 +1,7 @@
 QT += core testlib
 
 TARGET = cgFaceRecognitionTest
-CONFIG += testcase 
+CONFIG += testcase warn_on debug_and_release debug_and_release_target
 
 TEMPLATE = app
 

@@ -58,14 +58,24 @@ void FaceRecognitionTest::testFaceDetection()
 
 void FaceRecognitionTest::testFaceRecognition()
 {
-    QString willFerrellImagePath = m_imagesDir.absolutePath() + "/Will_Ferrell.jpg";
-    QString chadSmithImagePath = m_imagesDir.absolutePath() + "/Chad_Smith.jpg";
-    QString bothImagePath = m_imagesDir.absolutePath() + "/Ferrell_Smith.jpg";
+    QString absPath = m_imagesDir.absolutePath();
+    QString willFerrellImagePath = absPath + "/Will_Ferrell.jpg";
+    QString chadSmithImagePath = absPath + "/Chad_Smith.jpg";
+    QString bothImagePath = absPath + "/Ferrell_Smith.jpg";
 
     FaceRecognition faceRecognition(m_modelsDir.absolutePath());
-    faceRecognition.addFace("ferrell", willFerrellImagePath);
-    faceRecognition.addFace("smith", chadSmithImagePath);
-    QList<FaceRecognitionRect> rects = faceRecognition.recognizeFaces(bothImagePath);
+
+    QMap<QString, FaceEncoding> knownFacesMap;
+
+    FaceEncodings ferrellEncodings = faceRecognition.faceEncodings(willFerrellImagePath);
+    for (auto & encoding : ferrellEncodings)
+        knownFacesMap.insertMulti("ferrell", encoding);
+
+    FaceEncodings smithEncodings = faceRecognition.faceEncodings(chadSmithImagePath);
+    for (auto & encoding : smithEncodings)
+        knownFacesMap.insertMulti("smith", encoding);
+
+    QList<FaceRecognitionRect> rects = faceRecognition.recognizeFaces(knownFacesMap, bothImagePath);
     QCOMPARE(rects.size(), 2);
 
     for (auto & rect : rects)

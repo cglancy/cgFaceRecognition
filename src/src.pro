@@ -1,9 +1,12 @@
 QT += core
 
 TARGET = cgFaceRecognition
-CONFIG += dll
+CONFIG += dll warn_on debug_and_release debug_and_release_target
 TEMPLATE = lib
 VERSION	= 0.1.1
+
+QMAKE_CXXFLAGS_WARN_ON -= -w34100 
+QMAKE_CFLAGS_WARN_OFF += -w34503
 
 INCLUDEPATH += ../dlib \
 	../dlib/dlib/external/libpng \
@@ -12,9 +15,12 @@ INCLUDEPATH += ../dlib \
 
 HEADERS += cgfacerecognition.h \
 	facedetection.h \
+	faceencoding.h \
+	faceencoding_p.h \
 	facerecognition.h
 
 SOURCES += facedetection.cpp \
+	faceencoding.cpp \
 	facerecognition.cpp \
 	../dlib/dlib/all/source.cpp \
 	../dlib/dlib/external/libjpeg/jcapimin.cpp \
@@ -92,4 +98,4 @@ SOURCES += facedetection.cpp \
 	../dlib/dlib/external/zlib/uncompr.c \
 	../dlib/dlib/external/zlib/zutil.c
 
-DEFINES += CGFACERECOGNITION_EXPORTS DLIB_NO_GUI_SUPPORT DLIB_JPEG_SUPPORT DLIB_PNG_SUPPORT USE_AVX_INSTRUCTIONS=1
+DEFINES += CGFACERECOGNITION_EXPORTS DLIB_NO_GUI_SUPPORT DLIB_JPEG_SUPPORT DLIB_PNG_SUPPORT USE_SSE4_INSTRUCTIONS=ON

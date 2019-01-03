@@ -13,23 +13,20 @@
 * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef CG_FACEDETECTION_H
-#define CG_FACEDETECTION_H
+#ifndef CG_FACEENCODING_P_H
+#define CG_FACEENCODING_P_H
 #pragma once
 
-#include "cgfacerecognition.h"
-
-#include <QList>
-#include <QString>
-#include <QRect>
+#include <dlib/matrix.h>
 
 namespace cg
 {
-    class CGFACERECOGNITION_API FaceDetection
+    class FaceEncodingPrivate
     {
     public:
-        static QList<QRect> faceLocations(const QString &imagePath);
+        dlib::matrix<float, 0, 1> matrix;
+        dlib::rectangle rectangle;
     };
 }
 
-#endif // CG_FACEDETECTION_H
+#endif // CG_FACEENCODING_P_H
