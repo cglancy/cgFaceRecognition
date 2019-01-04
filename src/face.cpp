@@ -26,6 +26,7 @@ namespace cg
     Face::Face(const QString &id, const QByteArray &encoding)
         : d_ptr(new FacePrivate())
     {
+        Q_UNUSED(encoding);
         d_ptr->id = id;
     }
 
