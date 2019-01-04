@@ -14,10 +14,13 @@ INCLUDEPATH += ../src \
 	../.
 
 CONFIG(debug, debug|release) {
-    LIBS += -L../src/debug -lcgFaceRecognition0
-    PRE_TARGETDEPS += ../src/debug/cgFaceRecognition0.dll
+	LIBS += -L$$(DLIBDIR)/lib -ldlib19.16.0_debug_64bit_msvc1900
+    LIBS += -L../src/debug -lcgFaceRecognition
+    PRE_TARGETDEPS += ../src/debug/cgFaceRecognition.lib
 }
 else {
-    LIBS += -L../src/release -lcgFaceRecognition0
-    PRE_TARGETDEPS += ../src/release/cgFaceRecognition0.dll
+	LIBS += -L$$(DLIBDIR)/lib -ldlib19.16.0_release_64bit_msvc1900
+    LIBS += -L../src/release -lcgFaceRecognition
+    PRE_TARGETDEPS += ../src/release/cgFaceRecognition.lib
 }
+

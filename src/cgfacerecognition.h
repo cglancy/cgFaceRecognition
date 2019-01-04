@@ -22,9 +22,9 @@
 #ifdef Q_OS_WIN32
 
 #ifdef CGFACERECOGNITION_EXPORTS
-#define CGFACERECOGNITION_API __declspec(dllexport)
+#define CGFACERECOGNITION_API 
 #else
-#define CGFACERECOGNITION_API __declspec(dllimport)
+#define CGFACERECOGNITION_API
 #endif
 
 #else
