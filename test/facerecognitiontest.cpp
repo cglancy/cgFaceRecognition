@@ -46,13 +46,13 @@ void FaceRecognitionTest::cleanup()
 
 void FaceRecognitionTest::testFaceDetection()
 {
-    QString testImagePath = m_imagesDir.absolutePath() + "/2008_004176.jpg";
+    QString testImagePath = m_imagesDir.absolutePath() + "/Happy_family.jpg";
     QFileInfo fileInfo(testImagePath);
     QVERIFY(fileInfo.exists());
     if (fileInfo.exists())
     {
         QList<QRect> rectList = FaceDetection::faceLocations(testImagePath);
-        QCOMPARE(rectList.size(), 7);
+        QCOMPARE(rectList.size(), 5);
     }
 }
 

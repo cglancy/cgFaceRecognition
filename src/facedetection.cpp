@@ -25,7 +25,6 @@ namespace cg
         dlib::frontal_face_detector detector = dlib::get_frontal_face_detector();
         dlib::array2d<unsigned char> img;
         dlib::load_image(img, imagePath.toStdString());
-        dlib::pyramid_up(img);
         std::vector<dlib::rectangle> rects = detector(img);
 
         QList<QRect> qrects;
